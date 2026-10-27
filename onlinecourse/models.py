@@ -125,8 +125,6 @@ class Enrollment(models.Model):
 
     rating = models.FloatField(default=5.0)
 
-
-# Question model
 class Question(models.Model):
     course = models.ForeignKey(
         Course,
@@ -142,7 +140,7 @@ class Question(models.Model):
     )
 
     def __str__(self):
-        return "Question: " + self.question_text
+        return self.question_text
 
     def is_get_score(self, selected_ids):
         all_answers = self.choice_set.filter(
@@ -160,7 +158,6 @@ class Question(models.Model):
             return False
 
 
-# Choice model
 class Choice(models.Model):
     question = models.ForeignKey(
         Question,
@@ -168,7 +165,7 @@ class Choice(models.Model):
     )
 
     choice_text = models.CharField(
-        max_length=200
+        max_length=100
     )
 
     is_correct = models.BooleanField(
@@ -176,10 +173,9 @@ class Choice(models.Model):
     )
 
     def __str__(self):
-        return "Choice: " + self.choice_text
+        return self.choice_text
 
 
-# Submission model
 class Submission(models.Model):
     enrollment = models.ForeignKey(
         Enrollment,
@@ -192,3 +188,4 @@ class Submission(models.Model):
 
     def __str__(self):
         return "Submission: " + str(self.enrollment)
+
