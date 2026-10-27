@@ -5,49 +5,30 @@
     {% load static %}
 
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>{{ course.name }}</title>
 
-    <!-- Bootstrap CSS -->
+    <!-- Bootstrap -->
     <link rel="stylesheet"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
 </head>
 
 <body>
 
-    <!-- Bootstrap Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-        <a class="navbar-brand"
-           href="{% url 'onlinecourse:index' %}">
-            Online Course
-        </a>
-
-    </nav>
-
-
-    <!-- Course Details -->
     <div class="container mt-4">
 
         <!-- Course Name -->
-        <div class="jumbotron">
+        <h1 class="jumbotron">
+            {{ course.name }}
+        </h1>
 
-            <h1 class="display-4">
-                {{ course.name }}
-            </h1>
+        <!-- Course Description -->
+        <p class="lead">
+            {{ course.description }}
+        </p>
 
-            <p class="lead">
-                {{ course.description }}
-            </p>
-
-        </div>
-
-
-        <!-- Lessons -->
+        <!-- All Lessons -->
         <h2 class="mb-4">
             Course Lessons
         </h2>
@@ -57,18 +38,13 @@
             <div class="card mb-3">
 
                 <div class="card-header">
-                    <h5>
-                        Lesson {{ lesson.order|add:1 }}:
-                        {{ lesson.title }}
-                    </h5>
+                    <h4>{{ lesson.title }}</h4>
                 </div>
 
                 <div class="card-body">
-
                     <p class="card-text">
                         {{ lesson.content }}
                     </p>
-
                 </div>
 
             </div>
@@ -76,7 +52,7 @@
         {% empty %}
 
             <div class="alert alert-info">
-                No lessons available for this course.
+                No lessons available.
             </div>
 
         {% endfor %}
