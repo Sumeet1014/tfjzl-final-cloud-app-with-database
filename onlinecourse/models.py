@@ -190,5 +190,7 @@ class Submission(models.Model):
     )
 
     def __str__(self):
-        return "Submission: " + str(self.enrollment)
-
+        return "Submission {} for enrollment {}".format(
+            self.id,
+            self.enrollment.id
+        )
