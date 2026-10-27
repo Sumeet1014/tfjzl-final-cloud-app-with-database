@@ -58,7 +58,7 @@ urlpatterns = [
 
     # Show exam result
     path(
-        '<int:course_id>/exam_result/<int:submission_id>/',
+        'course/<int:course_id>/submission/<int:submission_id>/result/',
         views.show_exam_result,
         name='show_exam_result'
     ),
