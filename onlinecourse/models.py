@@ -109,27 +109,40 @@ class Enrollment(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
     )
+
     course = models.ForeignKey(
         Course,
         on_delete=models.CASCADE
     )
+
     date_enrolled = models.DateField(default=now)
+
     mode = models.CharField(
         max_length=5,
         choices=COURSE_MODES,
         default=AUDIT
     )
+
     rating = models.FloatField(default=5.0)
 
 
 # Question model
 class Question(models.Model):
-    lesson = models.ForeignKey(
-        Lesson,
+    course = models.ForeignKey(
+        Course,
         on_delete=models.CASCADE
     )
-    question_text = models.CharField(max_length=200)
-    grade = models.IntegerField(default=1)
+
+    question_text = models.CharField(
+        max_length=200
+    )
+
+    grade = models.IntegerField(
+        default=1
+    )
+
+    def __str__(self):
+        return "Question: " + self.question_text
 
     def is_get_score(self, selected_ids):
         all_answers = self.choice_set.filter(
@@ -153,8 +166,17 @@ class Choice(models.Model):
         Question,
         on_delete=models.CASCADE
     )
-    choice_text = models.CharField(max_length=200)
-    is_correct = models.BooleanField(default=False)
+
+    choice_text = models.CharField(
+        max_length=200
+    )
+
+    is_correct = models.BooleanField(
+        default=False
+    )
+
+    def __str__(self):
+        return self.choice_text
 
 
 # Submission model
@@ -163,4 +185,10 @@ class Submission(models.Model):
         Enrollment,
         on_delete=models.CASCADE
     )
-    choices = models.ManyToManyField(Choice)
+
+    choices = models.ManyToManyField(
+        Choice
+    )
+
+    def __str__(self):
+        return "Submission: " + str(self.enrollment)
