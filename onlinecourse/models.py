@@ -125,6 +125,7 @@ class Enrollment(models.Model):
 
     rating = models.FloatField(default=5.0)
 
+# Question model
 class Question(models.Model):
     course = models.ForeignKey(
         Course,
@@ -158,6 +159,7 @@ class Question(models.Model):
             return False
 
 
+# Choice model
 class Choice(models.Model):
     question = models.ForeignKey(
         Question,
@@ -176,6 +178,7 @@ class Choice(models.Model):
         return self.choice_text
 
 
+# Submission model
 class Submission(models.Model):
     enrollment = models.ForeignKey(
         Enrollment,
