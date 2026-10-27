@@ -243,18 +243,18 @@ def show_exam_result(request, course_id, submission_id):
 
     # Get all questions belonging to this course
     questions = Question.objects.filter(
-        lesson__course=course
+        course=course
     )
 
-    score = 0
-    total_grade = 0
+    grade = 0
+    possible = 0
 
     question_results = []
 
     # Check every question
     for question in questions:
 
-        total_grade += question.grade
+        possible += question.grade
 
         # Get selected choices for this question
         selected_ids = submission.choices.filter(
@@ -270,7 +270,7 @@ def show_exam_result(request, course_id, submission_id):
         )
 
         if is_correct:
-            score += question.grade
+            grade += question.grade
 
         question_results.append({
             'question': question,
@@ -283,8 +283,8 @@ def show_exam_result(request, course_id, submission_id):
         'course': course,
         'submission': submission,
         'questions': question_results,
-        'score': score,
-        'total_grade': total_grade
+        'grade': grade,
+        'possible': possible
     }
 
     return render(
