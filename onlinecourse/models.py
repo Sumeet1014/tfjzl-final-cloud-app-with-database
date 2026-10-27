@@ -133,16 +133,16 @@ class Question(models.Model):
         on_delete=models.CASCADE
     )
 
-    question_text = models.CharField(
+    content = models.CharField(
         max_length=200
     )
 
     grade = models.IntegerField(
-        default=1
+        default=50
     )
 
     def __str__(self):
-        return "Question: " + self.question_text
+        return "Question: " + self.content
 
     def is_get_score(self, selected_ids):
         all_answers = self.choice_set.filter(
@@ -167,7 +167,7 @@ class Choice(models.Model):
         on_delete=models.CASCADE
     )
 
-    choice_text = models.CharField(
+    content = models.CharField(
         max_length=200
     )
 
@@ -176,7 +176,7 @@ class Choice(models.Model):
     )
 
     def __str__(self):
-        return self.choice_text
+        return "Choice: " + self.content
 
 
 # Submission model
